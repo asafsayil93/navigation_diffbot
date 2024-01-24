@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+
+    <link name="imu_frame">
+
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <visual>
+            <geometry>
+                <cylinder radius="0.01" length="0.01"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.01" length="0.01"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.1" length="0.01" radius="0.01">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+
+
+    <joint name="imu_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="imu_frame"/>
+
+        <origin xyz="0.10 0 0.15" rpy="0 0 0"/>
+    </joint>
+
+  <gazebo reference="imu_frame">
+    <material>Gazebo/Red</material>
+    <sensor type="imu" name="asaf_imu_sensor">
+      <update_rate>50</update_rate>
+      <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_asaf">
+        <robotNamespace>/</robotNamespace>
+        <topicName>imu/data_raw</topicName>
+        <frameName>imu_frame</frameName>
+        <updateRateHZ>50.0</updateRateHZ>
+        <gaussianNoise>0.01</gaussianNoise>
+        <initialOrientationAsReference>false</initialOrientationAsReference>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  </robot>
