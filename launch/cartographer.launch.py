@@ -5,7 +5,7 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
 
-    cartographer_config_dir = os.path.join(get_package_share_directory('cartographer_slam'), 'config')
+    cartographer_config_dir = os.path.join(get_package_share_directory('navigation_diffbot'), 'config')
     configuration_basename = 'cartographer.lua'
 
     return LaunchDescription([
@@ -17,7 +17,7 @@ def generate_launch_description():
             output='screen',
             parameters=[{'use_sim_time': True}],
             arguments=['-configuration_directory', cartographer_config_dir,
-                       '-configuration_basename', configuration_basename]),
+                       '-configuration_basename', 'cartographer.lua']),
 
         Node(
             package='cartographer_ros',
