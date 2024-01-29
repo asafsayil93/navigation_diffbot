@@ -19,6 +19,7 @@ def generate_launch_description():
        )]), launch_arguments={'use_sim_time': 'true', 'use_ros2_control': 'true'}.items()
     )
 
+
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([os.path.join(
             get_package_share_directory('gazebo_ros'),'launch', 'gazebo.launch.py')]),
@@ -29,6 +30,7 @@ def generate_launch_description():
                         arguments=['-topic','robot_description',
                                    '-entity', 'my_robot'],
                         output='screen')
+    
     diff_drive_spawner = Node(
         package="controller_manager",
         executable="spawner",
@@ -40,8 +42,8 @@ def generate_launch_description():
         arguments=["joint_broad"],
     )
     return LaunchDescription([
-        rsp,
         gazebo,
+        rsp,
         spawn_entity,
         diff_drive_spawner,
         joint_broad_spawner

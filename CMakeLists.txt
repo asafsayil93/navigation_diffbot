@@ -31,6 +31,7 @@ install(
     launch
     worlds
     config
+    maps
   DESTINATION
     share/${PROJECT_NAME}/
 )
